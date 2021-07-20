@@ -1,14 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-// #define Acc struct Account
 typedef struct account
 {
     int accNum;
     int accBal;
     char name[10];
 } Acc;
-
 int searchAcc(int accn, FILE *acct)
 {
     Acc sear;
@@ -34,7 +32,6 @@ int searchAcc(int accn, FILE *acct)
             break;
         }
     }
-    // printf("y=%d\n", y);
     fseek(acct, 0, SEEK_SET);
     return y;
 }
@@ -94,26 +91,6 @@ void copyf(FILE *acco, long long int pos, int balance)
     fseek(acco, 0, SEEK_SET);
     char c;
     fptr = fopen("copy.txt", "w+");
-    // while (1)
-    // {
-    //     long long int p = ftell(fptr);
-    //     if (p == pos)
-    //     {
-    //         fscanf(acco, "%s %d %d", sam.name, &sam.accNum, &sam.accBal);
-    //         fprintf(fptr, "%s\t%d\t%d\n", sam.name, sam.accNum, balance);
-    //         printf("%s\t%d\t%d\n", sam.name, sam.accNum, balance);
-    //     }
-    //     else if ((c = fgetc(acco)) == EOF)
-    //     {
-    //         break;
-    //     }
-    //     // printf("c1=%c\n", c);
-    //     else
-    //     {
-    //         fscanf(acco, "%s %d %d", sam.name, &sam.accNum, &sam.accBal);
-    //         fprintf(fptr, "%s\t%d\t%d\n", sam.name, sam.accNum, sam.accBal);
-    //     }
-    // }
     while ((c = fgetc(acco)) != EOF)
     {
         long long int p = ftell(fptr);
@@ -121,7 +98,6 @@ void copyf(FILE *acco, long long int pos, int balance)
         {
             fscanf(acco, "%s %d %d", sam.name, &sam.accNum, &sam.accBal);
             fprintf(fptr, "%c%s\t%d\t%d", c, sam.name, sam.accNum, balance);
-            // printf("%s\t%d\t%d\n", sam.name, sam.accNum, balance);
         }
         else
         {
@@ -135,19 +111,6 @@ void copyf(FILE *acco, long long int pos, int balance)
     {
         fputc(c, acco);
     }
-    // while (1)
-    // {
-    //     printf("c2=%c\n", c);
-
-    //     long long int p = ftell(fptr);
-    //     fscanf(fptr, "%s %d %d", sam.name, &sam.accNum, &sam.accBal);
-    //     fprintf(acco, "%s\t%d\t%d\n", sam.name, sam.accNum, sam.accBal);
-    //      printf("%s\t%d\t%d\n", sam.name, sam.accNum, sam.accBal);
-    //     if ((c = fgetc(fptr)) == EOF)
-    //     {
-    //         break;
-    //     }
-    // }
     fclose(acco);
     fclose(fptr);
 }
@@ -160,7 +123,6 @@ void deposit(int accNum, FILE *acct, int balance)
     while (1)
     {
         long long int pos = ftell(acct);
-        // printf("pos=%d\n", ftell(acct));
         fscanf(acct, "%s %d %d", sear.name, &sear.accNum, &sear.accBal);
         c = fgetc(acct);
         if (accNum == sear.accNum)
@@ -186,7 +148,6 @@ void withdraw(int accNum, FILE *acct, int balance)
     while (1)
     {
         long long int pos = ftell(acct);
-        // printf("pos=%d\n", ftell(acct));
         fscanf(acct, "%s %d %d", sear.name, &sear.accNum, &sear.accBal);
         c = fgetc(acct);
         if (accNum == sear.accNum)
@@ -213,7 +174,6 @@ int lastMove()
         printf("thanks\n");
         lastmove = 0;
     }
-
     return lastmove;
 }
 int main()
@@ -225,7 +185,6 @@ int main()
         acct = fopen("acounts.txt", "a+");
         trant = fopen("transcation.txt", "a+");
         Acc seaAcc, res, creaacc, tranAcc, passAcc;
-
         int move1, an;
         printf("account create 1\n");
         printf("Check balance 2\n");
@@ -330,11 +289,7 @@ int main()
                     char c;
                     while ((c = fgetc(trant)) != EOF)
                     {
-                        // long int posi = ftell(trant);
-                        // fseek(trant, posi - 1, SEEK_CUR);
                         fscanf(trant, "%c %d %d", passAcc.name, &passAcc.accNum, &passAcc.accBal);
-                        // printf("c1=%c\n", fgetc(trant));
-                        // fscanf(trant, "%d %d", &passAcc.accNum, &passAcc.accBal);
                         if (passAcc.accNum == an)
                         {
                             if (passAcc.name[0] == '-' || c == '-')
@@ -348,10 +303,6 @@ int main()
                             printf("%d %d\n", passAcc.accNum, passAcc.accBal);
                         }
                         c = fgetc(trant);
-                        // if ((c = fgetc(trant)) == EOF)
-                        // {
-                        //     break;
-                        // }
                     }
                 }
             }
